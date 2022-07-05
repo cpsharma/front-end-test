@@ -1,0 +1,25 @@
+@import (reference) "../../less/styled-components.include.less";
+.box {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
+  background-color: @white;
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+  }
+}
+
+@media (min-width: 600px) {
+  .box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .box {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
