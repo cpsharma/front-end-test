@@ -1,7 +1,6 @@
 import { h, JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import styles from "../ui/filter.module.less";
-import Checkbox from "@material-ui/core/Checkbox";
 
 export default function FilterComponent(): JSX.Element {
   const [checked, setChecked] = useState(true);
@@ -10,184 +9,97 @@ export default function FilterComponent(): JSX.Element {
   };
 
   return (
-    <div>
-      <div className={styles.checkdiv}>
-        <div className={styles.hov}>
-          <p className={styles.checkdivtext}>Distance to center</p>
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            Inside city center(469)
-          </span>
-        </div>
-        <div className={styles.hov}>
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            2 km to center (159)
-          </span>
-        </div>
-        <div className={styles.hov}>
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            2-5km to center (131)
-          </span>
-        </div>
-
-        <div className={styles.hov}>
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            7km to center (201)
-          </span>
-        </div>
-        <div className={styles.hov}>
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            10km to center (151)
-          </span>
-        </div>
-      </div>
-      {/* </Paper> */}
-      {/* <Paper> */}
-
-      <div className={styles.checkdiv}>
-        <div className={styles.hov}>
-          <p className={styles.checkdivtext}>Neighbour</p>
-
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            Indira Gandhi Int'l Airport(469)
-          </span>
-        </div>
-        <div className={styles.hov}>
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            Gurgaon (159)
-          </span>
-        </div>
-        <div className={styles.hov}>
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            South Delhi (131)
-          </span>
-        </div>
-
-        <div className={styles.hov}>
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            7km to center (201)
-          </span>
-        </div>
-        <div className={styles.hov}>
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            10km to center (151)
-          </span>
+    <div className={styles["grid"]}>
+      <div className={styles["col"]}>
+        <div className={styles["filter-container"]}>
+          <label id="filter_label" className={styles["label-heading"]}>
+            Filter by:
+          </label>
+          <div className={styles["filter-label-margin"]}>
+            <label
+              id="star_rating_label"
+              className={styles["label-subheading"]}
+            >
+              Star rating
+            </label>
+            {ratings.map((option) => (
+              <label
+                className={styles["checkbox-container"]}
+                key={`star${option.value}`}
+              >
+                {option.label}
+                <input
+                  type="checkbox"
+                  id={option.value}
+                  checked={selectedStars.includes(option.value)}
+                  onChange={(e) => {
+                    setSelectedStars((prev: string[]) =>
+                      checkUnCheck(prev, (e.target as HTMLInputElement).id)
+                    );
+                  }}
+                />
+                <span className={styles["checkmark"]}></span>
+              </label>
+            ))}
+          </div>
+          <div className={styles["filter-label-margin"]}>
+            <label
+              id="person_price_label"
+              className={styles["label-subheading"]}
+            >
+              Price per person
+            </label>
+            {pricePerPerson.map((option) => (
+              <label
+                className={styles["checkbox-container"]}
+                key={`price${option.value}`}
+              >
+                {option.label}
+                <input
+                  type="checkbox"
+                  id={`${option.min}-${option.max}`}
+                  checked={selectedPricePerPerson.includes(
+                    `${option.min}-${option.max}`
+                  )}
+                  onChange={(e) => {
+                    setSelectedPricePerPerson((prev: string[]) =>
+                      checkUnCheck(prev, (e.target as HTMLInputElement).id)
+                    );
+                  }}
+                />
+                <span className={styles["checkmark"]}></span>
+              </label>
+            ))}
+          </div>
+          <div className={styles["filter-label-margin"]}>
+            <label
+              id="hotel_facilities_label"
+              className={styles["label-subheading"]}
+            >
+              Hotel facilities
+            </label>
+            {facilities.map((option) => (
+              <label
+                className={styles["checkbox-container"]}
+                key={`facility${option.value}`}
+              >
+                {option.label}
+                <input
+                  type="checkbox"
+                  id={option.label}
+                  checked={selectedFacilities.includes(option.label)}
+                  onChange={(e) => {
+                    setSelectedFacilities((prev: string[]) =>
+                      checkUnCheck(prev, (e.target as HTMLInputElement).id)
+                    );
+                  }}
+                />
+                <span className={styles["checkmark"]}></span>
+              </label>
+            ))}
+          </div>
         </div>
       </div>
-      {/* </Paper> */}
-
-      {/* <Paper> */}
-      <div className={styles.checkdiv}>
-        <div className={styles.hov}>
-          <p className={styles.checkdivtext}>Near Popular Attraction</p>
-
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            Cannought Place (228)
-          </span>
-        </div>
-        <div className={styles.hov}>
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            Chandni Chowk(6)
-          </span>
-        </div>
-        <div className={styles.hov}>
-          <span>
-            {" "}
-            <Checkbox
-              // checked={checked}
-              color="primary"
-              onChange={handleChangecheck}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-            Hauz khas valley
-          </span>
-        </div>
-      </div>
-
-      {/* </Paper> */}
     </div>
   );
 }

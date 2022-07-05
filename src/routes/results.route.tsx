@@ -1,22 +1,19 @@
-import { h, JSX } from "preact";
+import { h, JSX, Fragment } from "preact";
 import { useRouter } from "preact-router";
 import { useEffect, useState, useContext, createContext } from "preact/hooks";
 import SearchComponent from "../components/search.component";
 import { doRequest } from "../services/http.service";
 import { BookingRequest, BookingResponse, Holiday } from "../types/booking";
 import { DateTime } from "luxon";
-import {
-  HolidayContextProvider,
-  HolidayContextConsumer,
-} from "../context/holiday.context";
-import BoxComponent from "../components/ui/box.component";
-import HotelCardComponent from "../components/ui/card.component";
+import { HolidayContext } from "../context/holiday.context";
+import HotelSearchComponent from "../components/ui/hotelsearch.component";
 
 export default function ResultsRoute(): JSX.Element {
   const [searchParams] = useRouter();
   const [holidays, setHolidays] = useState<Holiday[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     const departureDate = DateTime.fromFormat(
       searchParams?.matches?.departureDate,
@@ -54,17 +51,11 @@ export default function ResultsRoute(): JSX.Element {
   let renderingContents: string = <p>Found no holidays.</p>;
   if (holidays.length > 0) {
     renderingContents = (
-      <HolidayContextProvider value={holidays}>
-        <HolidayContextConsumer>
-          {(holidays: Holiday) => (
-            <BoxComponent>
-              {holidays.map((hld) => {
-                return <HotelCardComponent holiday={hld}></HotelCardComponent>;
-              })}
-            </BoxComponent>
-          )}
-        </HolidayContextConsumer>
-      </HolidayContextProvider>
+      <HolidayContext.Provider value={holidays}>
+        <Fragment>
+          <HotelSearchComponent />
+        </Fragment>
+      </HolidayContext.Provider>
     );
   }
 

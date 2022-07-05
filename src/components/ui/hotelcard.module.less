@@ -1,12 +1,13 @@
 @import (reference) "../../less/styled-components.include.less";
 .card {
-  background-color: dodgerblue;
+  background-color: white;
   color: white;
-  padding: 1rem;
+  border: 1px solid grey;
+  border-radius: 10px;
   height: 10rem;
   .starrating {
-    height: 50px;
-    padding: 10px;
+    height: 30px;
+    padding: 5px;
     .star {
       float: left;
     }
@@ -21,16 +22,17 @@
     border-radius: 5px;
   }
   .name {
-    font-size: 18px;
-    height: 75;
+    font-size: 16px;
+    height: 50px;
     padding: 10px;
     color: grey;
   }
 
   .description {
-    font-size: 14px;
-    height: 100;
+    font-size: 12px;
+    height: 50px;
     padding: 10px;
     color: grey;
+    border-radius: 10px;
   }
 }
