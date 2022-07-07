@@ -3,9 +3,14 @@ import { useEffect, useState } from "preact/hooks";
 import * as styles from "../ui/starratingfilter.module.less";
 import StarComponent from "./star.component";
 
+type StarRatingFilter = {
+  starRatings: string[];
+  selectedStarRatings: string[];
+  handleStarRatingFilter: (event: Event) => void;
+};
 export default function StarRatingFilterComponent(props): JSX.Element {
-  const starRatings: string[] = props.starRating;
-  const selectedStarRating: string[] = props.selectedStarRating;
+  const starRatings: string[] = props.starRatings;
+  const selectedStarRating: string[] = props.selectedStarRatings;
   return (
     <ul className={styles.tags}>
       {starRatings.map((rating) => (

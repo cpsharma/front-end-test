@@ -9,11 +9,11 @@ type SliderProps = {
   value: string;
   id: string;
   className: string;
-  handlePriceFilter: () => {};
+  handlePriceFilter: (event: Event) => void;
 };
 function SliderComponent(props: SliderProps): JSX.Element {
   return (
-    <div className={styles.slidecontainer}>
+    <div className={styles["slide-container"]}>
       <p>
         <div id="maxPrice">
           Min Price: <strong>{props.min}</strong>

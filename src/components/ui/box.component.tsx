@@ -1,7 +1,10 @@
 import { h, JSX } from "preact";
 import * as styles from "../ui/box.module.less";
 
-function BoxComponent(props): JSX.Element {
+type BoxProps = {
+  children: JSX.Element;
+};
+function BoxComponent(props: BoxProps): JSX.Element {
   return <div className={styles.box}>{props.children}</div>;
 }
 

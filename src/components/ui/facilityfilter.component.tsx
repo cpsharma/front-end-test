@@ -3,13 +3,15 @@ import { useEffect, useState } from "preact/hooks";
 import * as styles from "../ui/facilityfilter.module.less";
 
 type FacilityFilterProps = {
-  hotelFacilities: string;
-  selectedFacilities: string;
+  hotelFacilities: string[];
+  selectedFacilities: string[];
   className: string;
-  handleFacilitiesFilter: () => {};
+  handleFacilitiesFilter: (event: Event) => void;
 };
-export default function FacilityFilterComponent(props): JSX.Element {
-  const hotelFacilities = props.hotelFacilities;
+export default function FacilityFilterComponent(
+  props: FacilityFilterProps
+): JSX.Element {
+  const hotelFacilities: string[] = props.hotelFacilities;
   const selectedFacilities: string[] = props.selectedFacilities;
   return (
     <ul className={styles.tags}>

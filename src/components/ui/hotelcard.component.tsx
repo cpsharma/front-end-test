@@ -3,43 +3,37 @@ import * as styles from "../ui/hotelcard.module.less";
 import ImageComponent from "./image.component";
 import StarComponent from "./star.component";
 import TagComponent from "./tag.component";
+import { Holiday } from "../../types/booking";
 
-type SelectProps = {
-  label: string;
-  name: string;
-  id: string;
-  options: Option[];
-  value: string;
-  required?: boolean;
+type HotelCardProps = {
+  holiday: Holiday;
 };
-function HotelCardComponent(props): JSX.Element {
-  //console.log(props.holiday.hotel.content);
+function HotelCardComponent(props: HotelCardProps): JSX.Element {
+  const holiday: Holiday = props.holiday;
   return (
     <div className={styles.card}>
       <ImageComponent
-        imgUrl={props.holiday.hotel.content.images[0].MOBILE_MAIN.url}
-        altText={props.holiday.hotel.name}
-        fallBackUrl={props.holiday.hotel.content.images[0].MOBILE_MAIN.url}
+        imgUrl={holiday.hotel.content.images[0].RESULTS_CAROUSEL.url}
+        altText={holiday.hotel.name}
+        fallBackUrl={holiday.hotel.content.images[0].RESULTS_CAROUSEL.url}
       ></ImageComponent>
-      <div className={styles.starrating}>
-        <span className={styles.star}>
-          {props.holiday.hotel.content?.starRating &&
-            [...Array(Number(props.holiday.hotel.content.starRating))].map(
-              (e, i) => <StarComponent key={i} checked={true}></StarComponent>
-            )}
-        </span>
-        <span className={styles.price}>
-          £{props.holiday.pricePerPerson}/person
-        </span>
+      <div className={styles["star-rating"]}>
+        <div className={styles.star}>
+          {holiday.hotel.content?.starRating &&
+            [...Array(Number(holiday.hotel.content.starRating))].map((e, i) => (
+              <StarComponent key={i} checked={true}></StarComponent>
+            ))}
+        </div>
+        <div className={styles.price}>£{holiday.pricePerPerson}/person</div>
       </div>
-      <div className={styles.name}>{props.holiday.hotel.name}</div>
+      <div className={styles.name}>{holiday.hotel.name}</div>
 
       <div className={styles.description}>
-        {props.holiday.hotel.content?.hotelDescription &&
-          props.holiday.hotel.content.hotelDescription.slice(0, 100) + "..."}
+        {holiday.hotel.content?.hotelDescription &&
+          holiday.hotel.content.hotelDescription.slice(0, 100) + "..."}
       </div>
       <div>
-        <TagComponent tags={props.holiday.hotel.content.hotelFacilities} />
+        <TagComponent tags={holiday.hotel.content.hotelFacilities} />
       </div>
     </div>
   );

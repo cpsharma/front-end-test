@@ -1,6 +1,6 @@
 import { h, JSX, Fragment } from "preact";
 import { useRouter } from "preact-router";
-import { useEffect, useState, useContext, createContext } from "preact/hooks";
+import { useEffect, useState, useContext } from "preact/hooks";
 import SearchComponent from "../components/search.component";
 import { doRequest } from "../services/http.service";
 import { BookingRequest, BookingResponse, Holiday } from "../types/booking";
@@ -38,7 +38,7 @@ export default function ResultsRoute(): JSX.Element {
       setError(null);
       doRequest("POST", "/cjs-search-api/search", requestBody).then(
         (response: unknown | BookingResponse) => {
-          const holidays: Holiday[] = response?.holidays;
+          const holidays: Holiday[] = response.holidays;
           setHolidays(
             holidays.sort((a, b) => a.pricePerPerson - b.pricePerPerson)
           );
@@ -53,7 +53,7 @@ export default function ResultsRoute(): JSX.Element {
   let renderingContents: string = <p>Found no holidays.</p>;
   if (holidays.length > 0) {
     renderingContents = (
-      <HolidayContext.Provider value={holidays}>
+      <HolidayContext.Provider value={holidays} children="">
         <Fragment>
           <HotelSearchComponent />
         </Fragment>

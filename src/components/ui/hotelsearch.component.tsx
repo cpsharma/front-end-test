@@ -1,13 +1,11 @@
 import { h } from "preact";
 import { useEffect, useState, useContext } from "preact/hooks";
-import { route } from "preact-router";
 import { Holiday, BookingResponse } from "../../types/booking";
 import * as styles from "../ui/hotelsearch.module.less";
 import BoxComponent from "../ui/box.component";
 import HotelCardComponent from "./hotelcard.component";
 import FacilityFilterComponent from "./facilityfilter.component";
 import SliderComponent from "./slider.component";
-import StarComponent from "./star.component";
 import StarRatingFilterComponent from "./starratingfilter.component";
 
 import { HolidayContext } from "../../context/holiday.context";
@@ -40,11 +38,11 @@ function HotelSearchComponent() {
         );
       setHotelFacilities(facilities.sort());
 
-      const ratings: string[] | number[] = [];
+      const ratings: string[] = [];
       holidays &&
         holidays.forEach((hl) => {
-          const rating: string | number = hl?.hotel?.content?.starRating;
-          hl?.hotel?.content?.starRating &&
+          const rating: string = hl.hotel.content?.starRating;
+          hl.hotel.content?.starRating &&
             !ratings.includes(rating) &&
             ratings.push(rating);
         });
@@ -90,12 +88,13 @@ function HotelSearchComponent() {
     setFilteredHolidayData,
   ]);
 
-  function handleStarRatingFilter(event: Event) {
+  function handleStarRatingFilter(event: Event): void {
     let rating: string;
+    const target = event.target as Element;
     if (event.target !== event.currentTarget) {
-      rating = event.target.parentElement.getAttribute("data-star-rating");
+      rating = target.parentElement.getAttribute("data-star-rating");
     } else {
-      rating = event.target.getAttribute("data-star-rating");
+      rating = target.getAttribute("data-star-rating");
     }
     if (selectedStarRating.includes(rating)) {
       setSelectedStarRating(selectedStarRating.filter((val) => val !== rating));
@@ -104,13 +103,16 @@ function HotelSearchComponent() {
     }
   }
 
-  function handlePriceFilter(event: Event) {
-    const selectedPrice: number = Number(event.target.value);
+  function handlePriceFilter(event: Event): void {
+    const target = event.target as HTMLButtonElement;
+    const selectedPrice: number = Number(target.value);
     setSelectedPricePerPerson(selectedPrice);
+    console.log(target.value);
   }
 
-  function handleFacilitiesFilter(event: Event) {
-    let selectedFacility: string = event.target.innerHTML;
+  function handleFacilitiesFilter(event: Event): void {
+    const target = event.target as Element;
+    let selectedFacility: string = target.innerHTML;
     if (selectedFacilities.includes(selectedFacility)) {
       setSelectedFacilities(
         selectedFacilities.filter((val) => val !== selectedFacility)
@@ -127,8 +129,8 @@ function HotelSearchComponent() {
 
         <div className={styles["filter-label-margin"]}>
           <StarRatingFilterComponent
-            starRating={hotelStarRating}
-            selectedStarRating={selectedStarRating}
+            starRatings={hotelStarRating}
+            selectedStarRatings={selectedStarRating}
             handleStarRatingFilter={handleStarRatingFilter}
           />
         </div>
@@ -143,11 +145,14 @@ function HotelSearchComponent() {
             max={Math.max(...pricePerPerson).toString()}
             value={
               selectedPricePerPerson
-                ? selectedPricePerPerson
+                ? selectedPricePerPerson.toString()
                 : Math.max(...pricePerPerson).toString()
             }
             id="priceRange"
             handlePriceFilter={handlePriceFilter}
+            name=""
+            className=""
+            type=""
           />
         </div>
 
@@ -160,6 +165,7 @@ function HotelSearchComponent() {
               hotelFacilities={hotelFacilities}
               selectedFacilities={selectedFacilities}
               handleFacilitiesFilter={handleFacilitiesFilter}
+              className=""
             />
           </div>
         </div>
@@ -167,7 +173,7 @@ function HotelSearchComponent() {
 
       {
         <div className={styles["col"]}>
-          <BoxComponent>
+          <BoxComponent children={null}>
             {filteredHolidayData.map((holiday) => {
               return (
                 <HotelCardComponent holiday={holiday}></HotelCardComponent>
