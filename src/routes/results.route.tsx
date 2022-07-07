@@ -38,8 +38,10 @@ export default function ResultsRoute(): JSX.Element {
       setError(null);
       doRequest("POST", "/cjs-search-api/search", requestBody).then(
         (response: unknown | BookingResponse) => {
-          console.log(response);
-          setHolidays(response?.holidays);
+          const holidays: Holiday[] = response?.holidays;
+          setHolidays(
+            holidays.sort((a, b) => a.pricePerPerson - b.pricePerPerson)
+          );
           setIsLoading(false);
         }
       );
