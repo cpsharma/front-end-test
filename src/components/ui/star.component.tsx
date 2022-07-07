@@ -3,12 +3,12 @@ import * as styles from "../ui/star.module.less";
 
 type StarProps = {
   checked: boolean;
+  key: number;
 };
-const StarComponent = (props: ImageProps) => {
+
+const StarComponent = (props: StarProps) => {
   return (
-    <span
-      className={`fa fa-star ${props.checked ? styles.checked : ""}`}
-    ></span>
+    <div className={`fa fa-star ${props.checked ? styles.checked : ""}`}></div>
   );
 };
 

@@ -1,30 +1,35 @@
 import { h } from "preact";
 import { useEffect, useState, useContext } from "preact/hooks";
+import { route } from "preact-router";
 import { Holiday, BookingResponse } from "../../types/booking";
-import { ratings, pricePerPerson, facilities } from "../../consts/searchResult";
 import * as styles from "./hotelsearch.module.less";
 import { checkUnCheck, filterBy } from "../../utils";
 import BoxComponent from "../ui/box.component";
 import HotelCardComponent from "./hotelcard.component";
-import TagComponent from "./tag.component";
+import FacilityFilterComponent from "./facilityfilter.component";
 import SliderComponent from "./slider.component";
+import StarComponent from "./star.component";
+import StarRatingFilterComponent from "./starratingfilter.component";
+
 import { HolidayContext } from "../../context/holiday.context";
 
 function HotelSearchComponent() {
   const holidays = useContext(HolidayContext);
-  const holidayData: Holiday[] = holidays;
+  const [filteredHolidayData, setFilteredHolidayData] = useState<Holiday[]>([]);
 
   const [hotelStarRating, setHotelStarRating] = useState<string[]>([]);
   const [selectedStarRating, setSelectedStarRating] = useState<string[]>([]);
 
   const [pricePerPerson, setPricePerPerson] = useState<number[]>([]);
-  const [selectedpricePerPerson, setSelectedpricePerPerson] = useState<
-    string[]
-  >([]);
+  const [selectedPricePerPerson, setSelectedpricePerPerson] =
+    useState<string>(null);
 
   const [hotelFacilities, setHotelFacilities] = useState<string[]>([]);
   const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
 
+  useEffect(() => {
+    setFilteredHolidayData(holidays);
+  }, []);
   useEffect(() => {
     if (holidays && holidays.length > 0) {
       const facilities: string[] = [];
@@ -56,6 +61,46 @@ function HotelSearchComponent() {
     }
   }, [holidays]);
 
+  useEffect(() => {
+    if (selectedStarRating.length > 0) {
+      setFilteredHolidayData(
+        holidays.filter((holiday) => {
+          return selectedStarRating.includes(
+            holiday?.hotel?.content?.starRating?.toString()
+          );
+        })
+      );
+    } else {
+      setFilteredHolidayData(holidays);
+    }
+    /* if (selectedPricePerPerson) {
+      setFilteredHolidayData(
+        holidays.filter((holiday) => {
+          return holiday.pricePerPerson <= Number(selectedPricePerPerson);
+        })
+      );
+    } */
+  }, [selectedStarRating, selectedPricePerPerson]);
+
+  function handleStarRatingFilter(event: Event) {
+    let rating: string;
+    if (event.target !== event.currentTarget) {
+      rating = event.target.parentElement.getAttribute("data-star-rating");
+    } else {
+      rating = event.target.getAttribute("data-star-rating");
+    }
+    if (selectedStarRating.includes(rating)) {
+      setSelectedStarRating(selectedStarRating.filter((val) => val !== rating));
+    } else {
+      setSelectedStarRating([...selectedStarRating, rating]);
+    }
+  }
+
+  function handlePriceFilter(event: Event) {
+    const selectedprice: string = event.target.value;
+    setSelectedpricePerPerson(selectedprice);
+  }
+
   return (
     <div className={styles["grid-box"]}>
       <div className={styles["filter-container"]}>
@@ -68,7 +113,13 @@ function HotelSearchComponent() {
             Star rating
           </label>
           <div className={styles["filter-label-margin"]}>
-            <TagComponent tags={hotelStarRating} />
+            <div className={styles["filter-label-margin"]}>
+              <StarRatingFilterComponent
+                starRating={hotelStarRating}
+                selectedStarRating={selectedStarRating}
+                handleStarRatingFilter={handleStarRatingFilter}
+              />
+            </div>
           </div>
         </div>
 
@@ -77,7 +128,13 @@ function HotelSearchComponent() {
             Price per person
           </label>
           <div className={styles["filter-label-margin"]}>
-            <SliderComponent tags={pricePerPerson} />
+            <SliderComponent
+              min={Math.min(...pricePerPerson).toString()}
+              max={Math.max(...pricePerPerson).toString()}
+              value={selectedPricePerPerson}
+              id="priceRange"
+              handlePriceFilter={handlePriceFilter}
+            />
           </div>
         </div>
 
@@ -89,7 +146,7 @@ function HotelSearchComponent() {
             Hotel facilities
           </label>
           <div className={styles["filter-label-margin"]}>
-            <TagComponent tags={hotelFacilities} />
+            <FacilityFilterComponent tags={hotelFacilities} />
           </div>
         </div>
       </div>
@@ -97,7 +154,7 @@ function HotelSearchComponent() {
       {
         <div className={styles["col"]}>
           <BoxComponent>
-            {holidayData.map((holiday) => {
+            {filteredHolidayData.map((holiday) => {
               return (
                 <HotelCardComponent holiday={holiday}></HotelCardComponent>
               );

@@ -2,7 +2,7 @@ import { h, JSX } from "preact";
 import * as styles from "../ui/hotelcard.module.less";
 import ImageComponent from "./image.component";
 import StarComponent from "./star.component";
-import TagComponent from "./filtertag.component";
+import TagComponent from "./tag.component";
 
 type SelectProps = {
   label: string;
