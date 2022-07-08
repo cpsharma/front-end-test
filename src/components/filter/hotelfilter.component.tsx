@@ -46,7 +46,7 @@ function HotelFilterComponent(): JSX.Element {
             !ratings.includes(rating) &&
             ratings.push(rating);
         });
-      setHotelStarRating(ratings);
+      setHotelStarRating(ratings?.sort());
 
       const prices: number[] = [];
       holidays &&
@@ -125,21 +125,17 @@ function HotelFilterComponent(): JSX.Element {
   return (
     <div className={styles["filter-box"]}>
       <div className={styles["filter-container"]}>
-        <div className={styles["label-heading"]}>Refine by star rating</div>
-
         <div className={styles["filter-label-margin"]}>
           <StarRatingFilterComponent
             starRatings={hotelStarRating}
             selectedStarRatings={selectedStarRating}
             handleStarRatingFilter={handleStarRatingFilter}
+            label="Refine by star rating"
+            id="startFilter"
           />
         </div>
 
         <div className={styles["filter-label-margin"]}>
-          <div className={styles["label-heading"]}>
-            Refine by price per person
-          </div>
-
           <SliderComponent
             min={Math.min(...pricePerPerson).toString()}
             max={Math.max(...pricePerPerson).toString()}
@@ -150,22 +146,21 @@ function HotelFilterComponent(): JSX.Element {
             }
             id="priceRange"
             handlePriceFilter={handlePriceFilter}
-            name=""
+            label="Refine by price per person"
             className=""
             type=""
           />
         </div>
 
         <div className={styles["filter-label-margin"]}>
-          <div className={styles["label-heading"]}>
-            Refine by hotel facilities
-          </div>
           <div className={styles["filter-label-margin"]}>
             <FacilityFilterComponent
               hotelFacilities={hotelFacilities}
               selectedFacilities={selectedFacilities}
               handleFacilitiesFilter={handleFacilitiesFilter}
               className=""
+              label=" Refine by hotel facilities"
+              id="facilityFilter"
             />
           </div>
         </div>

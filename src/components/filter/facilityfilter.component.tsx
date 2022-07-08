@@ -7,6 +7,8 @@ type FacilityFilterProps = {
   selectedFacilities: string[];
   className: string;
   handleFacilitiesFilter: (event: Event) => void;
+  id: string;
+  label: string;
 };
 export default function FacilityFilterComponent(
   props: FacilityFilterProps
@@ -14,17 +16,20 @@ export default function FacilityFilterComponent(
   const hotelFacilities: string[] = props.hotelFacilities;
   const selectedFacilities: string[] = props.selectedFacilities;
   return (
-    <ul className={styles.tags}>
-      {hotelFacilities.map((facility) => (
-        <li
-          className={`${styles.tag}  ${
-            selectedFacilities.includes(facility) && styles.selected
-          }`}
-          onClick={props.handleFacilitiesFilter}
-        >
-          {facility}
-        </li>
-      ))}
-    </ul>
+    <div>
+      <label for={props?.id}>{props?.label}</label>
+      <ul className={styles.tags}>
+        {hotelFacilities.map((facility) => (
+          <li
+            className={`${styles.tag}  ${
+              selectedFacilities.includes(facility) && styles.selected
+            }`}
+            onClick={props.handleFacilitiesFilter}
+          >
+            {facility}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
