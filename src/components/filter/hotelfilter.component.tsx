@@ -1,16 +1,16 @@
 import { h } from "preact";
 import { useEffect, useState, useContext } from "preact/hooks";
 import { Holiday, BookingResponse } from "../../types/booking";
-import * as styles from "../ui/hotelsearch.module.less";
+import * as styles from "./hotelfilter.module.less";
 import BoxComponent from "../ui/box.component";
-import HotelCardComponent from "./hotelcard.component";
+import HotelCardComponent from "../ui/hotelcard.component";
 import FacilityFilterComponent from "./facilityfilter.component";
-import SliderComponent from "./slider.component";
+import SliderComponent from "../ui/slider.component";
 import StarRatingFilterComponent from "./starratingfilter.component";
 
 import { HolidayContext } from "../../context/holiday.context";
 
-function HotelSearchComponent() {
+function HotelFilterComponent(): JSX.Element {
   const holidays = useContext(HolidayContext);
   const [filteredHolidayData, setFilteredHolidayData] = useState<Holiday[]>([]);
 
@@ -173,16 +173,14 @@ function HotelSearchComponent() {
 
       {
         <div className={styles["col"]}>
-          <BoxComponent children={null}>
-            {filteredHolidayData.map((holiday) => {
-              return (
-                <HotelCardComponent holiday={holiday}></HotelCardComponent>
-              );
-            })}
+          <BoxComponent>
+            {filteredHolidayData.map((holiday) => (
+              <HotelCardComponent holiday={holiday} />
+            ))}
           </BoxComponent>
         </div>
       }
     </div>
   );
 }
-export default HotelSearchComponent;
+export default HotelFilterComponent;

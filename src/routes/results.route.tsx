@@ -6,7 +6,7 @@ import { doRequest } from "../services/http.service";
 import { BookingRequest, BookingResponse, Holiday } from "../types/booking";
 import { DateTime } from "luxon";
 import { HolidayContext } from "../context/holiday.context";
-import HotelSearchComponent from "../components/ui/hotelsearch.component";
+import HotelFilterComponent from "../components/filter/hotelfilter.component";
 
 export default function ResultsRoute(): JSX.Element {
   const [searchParams] = useRouter();
@@ -50,13 +50,13 @@ export default function ResultsRoute(): JSX.Element {
       setError(error.message);
     }
   }, [searchParams]);
-  let renderingContents: string = <p>Found no holidays.</p>;
+  let renderingContents: JSX.Element = <p>Found no holidays.</p>;
   if (holidays.length > 0) {
     renderingContents = (
-      <HolidayContext.Provider value={holidays} children="">
-        <Fragment>
-          <HotelSearchComponent />
-        </Fragment>
+      <HolidayContext.Provider value={holidays}>
+        <div>
+          <HotelFilterComponent />
+        </div>
       </HolidayContext.Provider>
     );
   }
@@ -69,9 +69,9 @@ export default function ResultsRoute(): JSX.Element {
     renderingContents = <p>Loading...</p>;
   }
   return (
-    <section>
+    <div>
       <SearchComponent />
       {renderingContents}
-    </section>
+    </div>
   );
 }

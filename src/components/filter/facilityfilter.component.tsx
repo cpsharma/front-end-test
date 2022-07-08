@@ -1,6 +1,6 @@
 import { h, JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import * as styles from "../ui/facilityfilter.module.less";
+import * as styles from "./facilityfilter.module.less";
 
 type FacilityFilterProps = {
   hotelFacilities: string[];

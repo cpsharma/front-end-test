@@ -1,7 +1,7 @@
 import { h, JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import * as styles from "../ui/starratingfilter.module.less";
-import StarComponent from "./star.component";
+import * as styles from "./starratingfilter.module.less";
+import StarComponent from "../ui/star.component";
 
 type StarRatingFilter = {
   starRatings: string[];
