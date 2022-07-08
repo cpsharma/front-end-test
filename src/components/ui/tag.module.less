@@ -13,7 +13,7 @@
 }
 
 .tag {
-  background: #12d1c5;
+  background: @purple-light;
   border-radius: 3px 0 0 3px;
   color: white;
   display: inline-block;
@@ -41,7 +41,7 @@
 .tag::after {
   background: #fff;
   border-bottom: 10px solid transparent;
-  border-left: 10px solid #12d1c5;
+  border-left: 10px solid @purple-light;
   border-top: 10px solid transparent;
   content: "";
   position: absolute;
@@ -50,10 +50,10 @@
 }
 
 .tag:hover {
-  background-color: #12d1c5;
+  background-color: @purple-light;
   color: white;
 }
 
 .tag:hover::after {
-  border-left-color: #12d1c5;
+  border-left-color: @purple-light;
 }

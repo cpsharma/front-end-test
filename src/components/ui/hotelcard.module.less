@@ -1,8 +1,8 @@
 @import (reference) "../../less/styled-components.include.less";
 .card {
-  background-color: white;
-  color: white;
-  border: 1px solid grey;
+  background-color: @white;
+  color: @white;
+  border: 1px solid @toothbrush;
   border-radius: 10px;
   height: 10rem;
   .star-rating {
@@ -13,26 +13,28 @@
     }
   }
   .price {
-    font-size: 12px;
+    font-size: 1.6rem;
     float: right;
     background-color: @virgin-red;
-    color: white;
+    color: @white;
     padding: 2px;
     text-align: center;
     border-radius: 5px;
   }
   .name {
-    font-size: 16px;
+    font-size: 1.6rem;
+    font-weight: @font-weight-bold;
     height: 50px;
     padding: 10px;
-    color: grey;
+    color: @squid-ink;
   }
 
   .description {
-    font-size: 12px;
+    font-size: 1.2rem;
+    font-weight: @font-weight-light;
     height: 50px;
     padding: 10px;
-    color: grey;
+    color: @toothbrush;
     border-radius: 10px;
   }
 }
