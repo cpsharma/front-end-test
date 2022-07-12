@@ -21,7 +21,7 @@ function HotelCardComponent(props: HotelCardProps): JSX.Element {
         <div className={styles.star}>
           {holiday.hotel.content?.starRating &&
             [...Array(Number(holiday.hotel.content.starRating))].map((e, i) => (
-              <StarComponent checked={true}></StarComponent>
+              <StarComponent key={i}></StarComponent>
             ))}
         </div>
         <div className={styles.price}>£{holiday.pricePerPerson}/person</div>

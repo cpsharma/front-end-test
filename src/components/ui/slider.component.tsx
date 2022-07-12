@@ -16,7 +16,7 @@ function SliderComponent(props: SliderProps): JSX.Element {
     <div className={styles["slide-container"]}>
       <label for={props?.id}>{props?.label}</label>
       <input
-        type="range"
+        type={props?.type}
         min={props?.min}
         max={props?.max}
         value={props?.value}
@@ -25,11 +25,11 @@ function SliderComponent(props: SliderProps): JSX.Element {
         onChange={props?.handlePriceFilter}
       ></input>
       <p>
-        <div id="maxPrice">
-          Min Price: <strong>{props.min}</strong>
+        <div>
+          Min Price: <strong id="min-price">{props.min}</strong>
         </div>
-        <div id="maxPrice">
-          Max Price: <strong>{props?.value}</strong>
+        <div>
+          Max Price: <strong id="max-price">{props?.value}</strong>
         </div>
       </p>
     </div>

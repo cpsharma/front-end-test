@@ -5,12 +5,8 @@ type StarProps = {
   checked: boolean;
 };
 
-const StarComponent = (props: StarProps) => {
-  return (
-    <div
-      className={`"fa fa-star " ${props.checked ? styles.checked : ""}`}
-    ></div>
-  );
+const StarComponent = () => {
+  return <div className={`fa fa-star ${styles.checked} `}></div>;
 };
 
 export default StarComponent;

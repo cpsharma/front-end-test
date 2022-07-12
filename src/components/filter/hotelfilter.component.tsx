@@ -144,11 +144,11 @@ function HotelFilterComponent(): JSX.Element {
                 ? selectedPricePerPerson.toString()
                 : Math.max(...pricePerPerson).toString()
             }
-            id="priceRange"
+            id="price-range"
             handlePriceFilter={handlePriceFilter}
             label="Refine by price per person"
             className=""
-            type=""
+            type="range"
           />
         </div>
 
