@@ -3,7 +3,7 @@ import { useEffect, useState } from "preact/hooks";
 import * as styles from "./starratingfilter.module.less";
 import StarComponent from "../ui/star.component";
 
-type StarRatingFilterProps = {
+export type StarRatingFilterProps = {
   starRatings: string[];
   selectedStarRatings: string[];
   handleStarRatingFilter: (event: Event) => void;

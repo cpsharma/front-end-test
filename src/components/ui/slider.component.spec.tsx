@@ -1,7 +1,7 @@
-import { h, JSX } from "preact";
+import { h } from "preact";
 import { shallow, mount, configure, ShallowWrapper, cleanup } from "enzyme";
 import Adapter from "enzyme-adapter-preact-pure";
-import SliderComponent from "./slider.component";
+import SliderComponent, { SliderProps } from "./slider.component";
 
 configure({ adapter: new Adapter() });
 
@@ -9,7 +9,7 @@ describe("Slider Component", () => {
   const mockOnSlidingComplete = jest.fn();
   let slider_component: ShallowWrapper;
   beforeEach(() => {
-    const props = {
+    const props: SliderProps = {
       min: "2000",
       max: "5000",
       value: "4000",

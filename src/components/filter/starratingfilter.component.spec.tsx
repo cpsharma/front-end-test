@@ -1,12 +1,14 @@
 import { h } from "preact";
 import { mount, configure } from "enzyme";
 import Adapter from "enzyme-adapter-preact-pure";
-import StarRatingFilterComponent from "./starratingfilter.component";
+import StarRatingFilterComponent, {
+  StarRatingFilterProps,
+} from "./starratingfilter.component";
 
 configure({ adapter: new Adapter() });
 
 describe("StarRatingFilter Component", () => {
-  const props = {
+  const props: StarRatingFilterProps = {
     starRatings: ["3", "4", "5"],
     selectedStarRatings: [],
     handleStarRatingFilter: (event: Event): void => {},

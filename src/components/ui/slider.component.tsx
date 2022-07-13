@@ -1,7 +1,7 @@
 import { h, JSX } from "preact";
 import * as styles from "../ui/slider.module.less";
 
-type SliderProps = {
+export type SliderProps = {
   type: string;
   label: string;
   min: string;

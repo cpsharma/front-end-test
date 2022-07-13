@@ -2,7 +2,7 @@ import { h, JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import * as styles from "../ui/tag.module.less";
 
-type TagProps = {
+export type TagProps = {
   tags: string[];
 };
 export default function TagComponent(props: TagProps): JSX.Element {

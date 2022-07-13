@@ -1,9 +1,9 @@
-import { h, JSX } from "preact";
-import { shallow, mount, configure, ShallowWrapper, cleanup } from "enzyme";
-import HotelCardComponent from "./hotelcard.component";
+import { h } from "preact";
+import { mount, configure } from "enzyme";
+import HotelCardComponent, { HotelCardProps } from "./hotelcard.component";
 import Adapter from "enzyme-adapter-preact-pure";
 import holidaysMock from "../../__mock__/holiday.json";
-import { BookingResponse, Holiday } from "../../types/booking";
+import { BookingResponse } from "../../types/booking";
 
 configure({ adapter: new Adapter() });
 
@@ -11,7 +11,7 @@ describe("HotelCard component", () => {
   const holidaysMockObj: BookingResponse = JSON.parse(
     JSON.stringify(holidaysMock)
   );
-  const props = {
+  const props: HotelCardProps = {
     holiday: holidaysMockObj.holidays[0],
   };
   const hotel_card_component = mount(<HotelCardComponent {...props} />);

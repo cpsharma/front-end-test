@@ -1,13 +1,13 @@
 import { h } from "preact";
 import { shallow, mount, configure, ShallowWrapper, cleanup } from "enzyme";
 import Adapter from "enzyme-adapter-preact-pure";
-import TagComponent from "./tag.component";
+import TagComponent, { TagProps } from "./tag.component";
 
 configure({ adapter: new Adapter() });
 
 describe("Tag Component", () => {
   let tag_component: ShallowWrapper;
-  const props = {
+  const props: TagProps = {
     tags: ["Car Parking"],
   };
   beforeEach(() => {

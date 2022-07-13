@@ -5,7 +5,7 @@ import StarComponent from "../ui/star.component";
 import TagComponent from "../ui/tag.component";
 import { Holiday } from "../../types/booking";
 
-type HotelCardProps = {
+export type HotelCardProps = {
   holiday: Holiday;
 };
 function HotelCardComponent(props: HotelCardProps): JSX.Element {

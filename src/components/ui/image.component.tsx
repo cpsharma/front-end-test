@@ -1,7 +1,7 @@
 import { h, JSX } from "preact";
 import * as styles from "../ui/image.module.less";
 
-type ImageProps = {
+export type ImageProps = {
   imgUrl: string;
   altText: string;
   fallBackUrl: string;
