@@ -53,7 +53,7 @@ export default function ResultsRoute(): JSX.Element {
   let renderingContents: JSX.Element = <p>Found no holidays.</p>;
   if (holidays.length > 0) {
     renderingContents = (
-      <HolidayContext.Provider value={holidays} children={[]}>
+      <HolidayContext.Provider value={holidays}>
         <div>
           <HotelFilterComponent />
         </div>

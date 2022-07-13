@@ -5,7 +5,7 @@ import FacilityFilterComponent, {
 } from "./facilityfilter.component";
 import Adapter from "enzyme-adapter-preact-pure";
 import holidaysMock from "../../__mock__/holiday.json";
-import { BookingResponse, Holiday } from "../../types/booking";
+import { BookingResponse } from "../../types/booking";
 
 configure({ adapter: new Adapter() });
 

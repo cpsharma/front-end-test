@@ -1,6 +1,6 @@
 import { h, JSX } from "preact";
 import { useEffect, useState, useContext } from "preact/hooks";
-import { Holiday, BookingResponse } from "../../types/booking";
+import { Holiday } from "../../types/booking";
 import * as styles from "./hotelfilter.module.less";
 import BoxComponent from "../ui/box.component";
 import HotelCardComponent from "./hotelcard.component";
@@ -169,9 +169,13 @@ const HotelFilterComponent = (): JSX.Element => {
       {
         <div className={styles["col"]}>
           <BoxComponent>
-            {filteredHolidayData.map((holiday) => (
-              <HotelCardComponent holiday={holiday} />
-            ))}
+            {filteredHolidayData.length > 0 &&
+              filteredHolidayData.map((holiday) => (
+                <HotelCardComponent holiday={holiday} />
+              ))}
+            {filteredHolidayData.length === 0 && (
+              <p>No match found, please refine your search</p>
+            )}
           </BoxComponent>
         </div>
       }
