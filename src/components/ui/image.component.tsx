@@ -3,7 +3,7 @@ import * as styles from "../ui/image.module.less";
 
 type ImageProps = {
   imgUrl: string;
-  altText?: string;
+  altText: string;
   fallBackUrl: string;
 };
 const ImageComponent = (props: ImageProps) => {

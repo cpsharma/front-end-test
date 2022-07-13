@@ -2,7 +2,7 @@ import { h, JSX } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import * as styles from "./facilityfilter.module.less";
 
-type FacilityFilterProps = {
+export type FacilityFilterProps = {
   hotelFacilities: string[];
   selectedFacilities: string[];
   className: string;
@@ -18,7 +18,7 @@ export default function FacilityFilterComponent(
   return (
     <div>
       <label for={props?.id}>{props?.label}</label>
-      <ul className={styles.tags}>
+      <ul className={styles.tags} id={props?.id}>
         {hotelFacilities.map((facility) => (
           <li
             className={`${styles.tag}  ${

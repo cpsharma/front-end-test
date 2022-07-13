@@ -1,16 +1,16 @@
-import { h } from "preact";
+import { h, JSX } from "preact";
 import { useEffect, useState, useContext } from "preact/hooks";
 import { Holiday, BookingResponse } from "../../types/booking";
 import * as styles from "./hotelfilter.module.less";
 import BoxComponent from "../ui/box.component";
-import HotelCardComponent from "../ui/hotelcard.component";
+import HotelCardComponent from "./hotelcard.component";
 import FacilityFilterComponent from "./facilityfilter.component";
 import SliderComponent from "../ui/slider.component";
 import StarRatingFilterComponent from "./starratingfilter.component";
 
 import { HolidayContext } from "../../context/holiday.context";
 
-function HotelFilterComponent(): JSX.Element {
+const HotelFilterComponent = (): JSX.Element => {
   const holidays = useContext(HolidayContext);
   const [filteredHolidayData, setFilteredHolidayData] = useState<Holiday[]>([]);
 
@@ -88,7 +88,7 @@ function HotelFilterComponent(): JSX.Element {
     setFilteredHolidayData,
   ]);
 
-  function handleStarRatingFilter(event: Event): void {
+  const handleStarRatingFilter = (event: Event): void => {
     let rating: string;
     const target = event.target as Element;
     if (event.target !== event.currentTarget) {
@@ -101,16 +101,16 @@ function HotelFilterComponent(): JSX.Element {
     } else {
       setSelectedStarRating([...selectedStarRating, rating]);
     }
-  }
+  };
 
-  function handlePriceFilter(event: Event): void {
+  const handlePriceFilter = (event: Event): void => {
     const target = event.target as HTMLButtonElement;
     const selectedPrice: number = Number(target.value);
     setSelectedPricePerPerson(selectedPrice);
     console.log(target.value);
-  }
+  };
 
-  function handleFacilitiesFilter(event: Event): void {
+  const handleFacilitiesFilter = (event: Event): void => {
     const target = event.target as Element;
     let selectedFacility: string = target.innerHTML;
     if (selectedFacilities.includes(selectedFacility)) {
@@ -120,7 +120,7 @@ function HotelFilterComponent(): JSX.Element {
     } else {
       setSelectedFacilities([...selectedFacilities, selectedFacility]);
     }
-  }
+  };
 
   return (
     <div className={styles["filter-box"]}>
@@ -131,7 +131,7 @@ function HotelFilterComponent(): JSX.Element {
             selectedStarRatings={selectedStarRating}
             handleStarRatingFilter={handleStarRatingFilter}
             label="Refine by star rating"
-            id="startFilter"
+            id="start-rating-filter"
           />
         </div>
 
@@ -144,7 +144,7 @@ function HotelFilterComponent(): JSX.Element {
                 ? selectedPricePerPerson.toString()
                 : Math.max(...pricePerPerson).toString()
             }
-            id="price-range"
+            id="price-range-filter"
             handlePriceFilter={handlePriceFilter}
             label="Refine by price per person"
             className=""
@@ -160,7 +160,7 @@ function HotelFilterComponent(): JSX.Element {
               handleFacilitiesFilter={handleFacilitiesFilter}
               className=""
               label=" Refine by hotel facilities"
-              id="facilityFilter"
+              id="facility-filter"
             />
           </div>
         </div>
@@ -177,5 +177,5 @@ function HotelFilterComponent(): JSX.Element {
       }
     </div>
   );
-}
+};
 export default HotelFilterComponent;

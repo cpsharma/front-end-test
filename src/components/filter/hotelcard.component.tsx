@@ -1,8 +1,8 @@
 import { h, JSX } from "preact";
-import * as styles from "../ui/hotelcard.module.less";
-import ImageComponent from "./image.component";
-import StarComponent from "./star.component";
-import TagComponent from "./tag.component";
+import * as styles from "./hotelcard.module.less";
+import ImageComponent from "../ui/image.component";
+import StarComponent from "../ui/star.component";
+import TagComponent from "../ui/tag.component";
 import { Holiday } from "../../types/booking";
 
 type HotelCardProps = {
@@ -11,7 +11,7 @@ type HotelCardProps = {
 function HotelCardComponent(props: HotelCardProps): JSX.Element {
   const holiday: Holiday = props.holiday;
   return (
-    <div className={styles.card}>
+    <div className={`hotel-card ${styles.card}`}>
       <ImageComponent
         imgUrl={holiday.hotel.content.images[0].RESULTS_CAROUSEL.url}
         altText={holiday.hotel.name}
@@ -26,7 +26,7 @@ function HotelCardComponent(props: HotelCardProps): JSX.Element {
         </div>
         <div className={styles.price}>£{holiday.pricePerPerson}/person</div>
       </div>
-      <div className={styles.name}>{holiday.hotel.name}</div>
+      <div className={`hotel-name ${styles.name}`}>{holiday.hotel.name}</div>
 
       <div className={styles.description}>
         {holiday.hotel.content?.hotelDescription &&
